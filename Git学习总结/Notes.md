@@ -1,4 +1,6 @@
 # Git简介
+- **Git**是世界上最先进的分布式版本控制系统（没有之一）。
+
 ### 安装Git
 - 在Windows上使用Git，可以从Git官网直接[下载安装程序](https://git-scm.com/downloads)，（网速慢的同学请移步[国内镜像](http://mirrors.ustc.edu.cn/)），然后按默认选项安装即可。
 - 安装完成后，在开始菜单里找到"Git"->"Git Bash"，蹦出一个类似命令行窗口的东西，就说明Git安装成功。
@@ -32,4 +34,10 @@
 - 把一个文件放到Git仓库只需要两步：
     - `$ git add xxx.txt`
     - `$ git commit -m "本次提交说明"`
+    - `$ git commit -a --allow-empty-message -m ''`，**无提交说明**
 - Unix的哲学是“没有消息就是好消息”
+
+
+# 时光穿梭机
+- `git status`命令可以让我们时刻掌握仓库当前的状态
+- `git diff <file>`命令可以查看当前文件和上次修改的内容变化

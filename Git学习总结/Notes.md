@@ -48,3 +48,12 @@
     - `git log --pretty=oneline`
 - Git的**commit id（版本号）**是一个SHA1计算出来的一个非常大的数字，用十六进制表示。
 - 每提交一个新版本，实际上Git就会把它们自动串成一条时间线。如果使用可视化工具查看Git历史，就可以更清楚地看到提交历史的时间线。
+- 在Git中，用**HEAD**表示当前版本，也就是最新提交的**commit id**，用**HEAD^**表示上一个版本，**HEAD^^**表示上上一个版本，用**HEAD~100**表示往上100个版本。
+- 回退到上一个版本使用`git reset`命令：
+    - `git reset --hard HEAD^`
+    - 可以使用`git log`看看现在版本库的状态
+- 回到之前的最新版本：
+    - `git reset --hard xxxxx`
+    - 其中**xxxxx**为之前最新版本的**commit id**，版本号（commit id）没必要写全，前几位就行，Git会自动去找。
+- Git的版本回退速度非常快，因为Git在内部有个指向当前版本的**HEAD**指针。
+- Git提供了`git reflog`用来记录你的每一次命令

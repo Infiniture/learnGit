@@ -106,3 +106,11 @@
 - 假定你有若干台电脑，只要把每台电脑的Key都添加到GitHub，你就可以在每台电脑上往GitHub推送了。
 
 ### 添加远程库
+- 场景：你已经在本地创建了一个Git仓库，又想在GitHub上创建一个Git仓库，并且让这两个仓库进行远程同步。
+- 登陆GitHub，在右上角找到"Create a new repo"按钮，创建一个新的仓库，与本地仓库名称相同。
+- 在本地的仓库下运行命令`git remote add origin git@github.com:用户名/仓库名.git`关联远程库。
+- 把本地库的所有内容推送到远程库上
+    - `$ git push -u origin master`，实际上是把当前分支**master**推送到远程。
+    - 由于远程库是空的，我们第一次推送**master**分支时，加上了-u参数，Git不但会把本地的**master**分支内容推送到远程新的**master**分支，还会把本地的**master**分支和远程的**master**分支关联起来，在以后的推送或者拉取时就可以简化命令。
+    - 之后的每次提交，可以通过命令`git push origin master`。
+

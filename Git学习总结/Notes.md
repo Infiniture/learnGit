@@ -93,3 +93,16 @@
 
 
 # 远程仓库
+- Git是分布式版本控制系统，同一个**Git**仓库，可以分布到不同的机器上。
+- **GitHub**网站是提供Git仓库托管服务的，只要注册一个**GitHub**账号，就可以免费获得**Git**远程仓库。
+- 本地**Git**仓库和**GitHub**仓库之间的传输是通过SSH加密的，所以需要一点设置：
+    - 创建SSH Key。打开Shell（Windows下打开Git Bash），创建SSH Key：
+    - `$ ssh-keygen -t rsa -C "your email@example.com"`
+    - 把邮箱地址换成自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+    - 在用户主目录里找到<em>.ssh</em>目录，里面有**id_rsa**和**id_rsa.pub**两个文件，这两个就是SSH Key的密钥对，其中**id_rsa**是私钥，不能泄露出去，**id_rsa.pub**是公钥，可以放心地告诉任何人。
+    - 使用命令`cd ~`进入用户主目录。
+- 登陆GitHub，在右上角头像处点击，打开**Settings**，点击左边的**SSH and GPG keys**，在**Key**文本框里粘贴**id_rsa.pub**文件内容即可添加公钥。
+- GitHub需要SSH Key去识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
+- 假定你有若干台电脑，只要把每台电脑的Key都添加到GitHub，你就可以在每台电脑上往GitHub推送了。
+
+### 添加远程库

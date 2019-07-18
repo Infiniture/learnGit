@@ -121,3 +121,23 @@
 
 
 # 分支管理
+
+### 创建与合并分支
+- 每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支，若没有创造其它分支，则只有**master**分支，**HEAD**是指向**master**，**master**才是指向提交的，所以**HEAD**指向的就是当前分支。
+- 一开始的时候，**master**分支是一条线，Git用**master**指向最新的提交，再利用**HEAD**指向**master**，就能确定当前分支，以及当前分支的提交点：
+
+    ![](https://www.liaoxuefeng.com/files/attachments/919022325462368/0)
+- 当我们创建新的分支，例如**dev**时，Git新建了一个指针叫**dev**，指向**master**相同的提交，再把**HEAD**指向**dev**，就表示把当前分支在**dev**上：
+
+    ![](https://www.liaoxuefeng.com/files/attachments/919022363210080/0)
+- 创建**dev**分支，然后切换到**dev**分支：
+    - `$ git checkout -b dev`
+    - `git checkout`命令加上`-b`参数表示创建并切换，相当于以下两条命令：
+    - `git branch dev`，表示创建**dev**分支。
+    - `git checkout dev`，表示切换到**dev**分支。
+- 用`git branch`命令查看当前分支，`git branch`命令会列出所有分支，当前分支前面会标一个`*`号。
+- 将**dev**分支的工作成果合并到**master**分支：
+    - `git checkout master`，首先切换到master分支。
+    - `git merge dev`
+    - `git merge`命令用于合并指定分支到当前分支。
+- `git branch -d dev`删除**dev**分支

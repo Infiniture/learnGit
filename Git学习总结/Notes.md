@@ -141,3 +141,14 @@
     - `git merge dev`
     - `git merge`命令用于合并指定分支到当前分支。
 - `git branch -d dev`删除**dev**分支
+
+### 解决冲突
+- 当**master**分支和新创建的分支（feature1）各自都分别有新的提交，如下图所示：
+    ![](https://www.liaoxuefeng.com/files/attachments/919023000423040/0)
+- 这种情况下，Git无法执行“快速合并”，必须手动解决冲突后再提交，当手动解决冲突后再提交，分支合并情况如下图所示：
+    ![](https://www.liaoxuefeng.com/files/attachments/919023031831104/0)
+- 解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+- 用带参数的`git log`也可以看到分支的合并情况。
+    - `git log --graph --pretty=oneline --abbrev-commit`
+
+### 分支管理策略

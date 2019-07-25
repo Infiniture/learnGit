@@ -1,3 +1,6 @@
+# Git
+[TOC]
+
 # Git简介
 - **Git**是世界上最先进的分布式版本控制系统（没有之一）。
 
@@ -61,6 +64,8 @@
 ### 工作区和暂存区
 - Git和其它版本控制系统如SVN一个不同之处就是有暂存区的概念。
 - 工作区（Working Directory）就是你在电脑里能看到的目录（文件夹）。
+
+    ![](https://www.liaoxuefeng.com/files/attachments/919020037470528/0)
 - 版本库（Repository）
     - 工作区有一个隐藏目录<em>.git</em>，这个不算工作区，而是Git的版本库。
     - Git的版本库里存了很多东西，其中最重要的就是成为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支**master**，以及指向**master**的一个指针叫**HEAD**。
@@ -69,6 +74,7 @@
     - 第二步用`git commit`提交更改，实际上就是把暂存区的所有内容提交到当前分支。
     - 因为我们创建Git版本库时候，Git自动为我们创建了唯一一个`master`分支，所以，现在，`git commit`就是往`master`分支上提交更改。
     - 可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。
+- [详细介绍](https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576)
 
 ### 管理修改
 - Git跟踪并管理的是修改，而非文件。
@@ -164,6 +170,28 @@ $ git merge --no-ff -m "修改信息" dev
 - 合并分支时，加上<em>--no-ff</em>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过而合并，而**fast forward**合并就看不出来曾经做过合并。
 
 ### Bug分支
+- 通过一个例子来说明：
+> 1. master上面发布的是A的1.0版本；
+>  2. dev分支上开发的是A的2.0版本；
+>  3. 这是，用户反映1.0版本存在漏洞，有人利用这个漏洞开外挂；
+> 4. 需要从dev切换到master去填这个漏洞，正常必须先提交dev目前的工作才能切换（必须提交，否则无法切换，只add也不行，因为前面说过checkout会覆盖本地的更改）；
+> 5. 而dev的工作还未完成，不想提交，所以先把dev的工作stash以下，然后切换到master；
+> 6. 在master建立分支issue101并切换；
+> 7. 在issue101上修复漏洞；
+> 8. 修复后，在master上合并issue101；
+> 9. 切回dev，回复原本工作分支，继续工作。
+  
+> 对应的Git Bash操作：
+> 1. git stash: 保存dev当前的工作现场
+> 2. git checkout -b issue-101: 创建专门用于解决bug的issue101分支
+> 3. 解决bug后，添加到暂存区，并提交
+> 4. 切回到master分支，git checkout master
+> 5. 合并分支，git merge --no--ff -m "merged bug fix 101" issue-101
+> 6. 删除用于解决bug的分支，git branch -d issue-101
+> 7. 切回dev分支，git checkout dev
+> 8. 回复工作现场，git stash apply
+> 9. 删除工作现场内容，git stash drop
+> 10. 也可以用`git stash pop`命令在恢复的同时把stash内容也删除。
 
 ### Feature分支
 - 如果要丢弃一个没有被合并过的分支，可以通过`git branch -D <name>`强行删除。
@@ -177,3 +205,41 @@ $ git merge --no-ff -m "修改信息" dev
 - 如果远程库的文件有修改，而你本地也进行了修改，则无法推送，需要先用`git pull`把最新的提交从远程库抓下来，然后，在本地合并，解决冲突，再推送。
 
 ### Rebase
+- rebase操作可以把本地未push的分叉提交历史整理成直线。
+- rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+- [rebase的详细介绍](http://gitbook.liuhui998.com/4_2.html)
+
+
+# 标签管理
+- Git的标签虽然是版本库的快照，但其实它就是指向某个commit的指针，所以创建和删除标签都是瞬间完成的。
+
+### 创建标签
+- 使用`git tag <tagname>`命令打一个新标签，默认标签是打在最新提交的commit上的。
+- 根据过去的**commit**进行打标签，先使用命令`git log --pretty=oneline --abbrev-commit`找到历史提交的**commit id**，然后使用命令`git tag <tagname> commit id`即可。
+- 使用命令`git tag`查看标签。
+- 标签不是按时间顺序列出，而实按字母排序。可用`git show <tagname>`查看标签信息。
+- 可以创建带有说明的标签，**-a**指定标签名，**-m**指定说明文字。
+    - `git tag -a <tagname> -m "说明文字" commit id`
+
+### 操作标签
+- 创建的标签都只存储在本地，不会自动推送到远程，所以，打错的标签可以在本地安全删除。
+- 删除标签，`git tag -d <tagname>`。
+- 推送某个标签到远程，`git push origin <tagname>`。
+- 一次性推送全部尚未推送到远程的本地标签，`git push origin --tags`。
+- 如果标签已经推送到远程，若要删除标签，就先从本地删除，使用命令`git tag -d <tagname>`，然后从远程删除，使用命令`git push origin : refs/tags/<tagname>`。
+
+
+# 自定义Git
+- 让Git适当地显示不同的颜色，使用命令`git config --global color.ui true`
+
+### 忽略特殊文件
+- 忽略某些文件时，需要编写<em>.gitignore</em>。
+- <em>.gitignore</em>文件本身要放到版本库里，并且可以对<em>.gitignore</em>做版本管理。
+
+
+# 参考资料
+> [廖学峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
+
+>  [Git官方文档](https://git-scm.com/book/zh/v2)
+
+>  [Git Community Book 中文版](http://gitbook.liuhui998.com/index.html)

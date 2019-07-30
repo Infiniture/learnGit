@@ -172,7 +172,7 @@ $ git commit -m "修改信息"
 $ git checkout master
 $ git merge --no-ff -m "修改信息" dev
 ```
-- 合并分支时，加上<em>--no-ff</em>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过而合并，而**fast forward**合并就看不出来曾经做过合并。
+- 合并分支时，加上<strong>--no-ff</strong>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过而合并，而**fast forward**合并就看不出来曾经做过合并。
 
 ### Bug分支
 - 通过一个例子来说明：
@@ -239,7 +239,7 @@ $ git merge --no-ff -m "修改信息" dev
 
 ### 忽略特殊文件
 - 忽略某些文件时，需要编写<em>.gitignore</em>。
-- <em>.gitignore</em>文件本身要放到版本库里，并且可以对<em>.gitignore</em>做版本管理。
+- <strong>.gitignore</strong>文件本身要放到版本库里，并且可以对<strong>.gitignore</strong>做版本管理。
 
 
 # 参考资料

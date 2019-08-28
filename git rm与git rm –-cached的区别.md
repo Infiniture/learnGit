@@ -1,8 +1,4 @@
-## 使用Git学到的一些知识点
-
-[TOC]
-
-#### git rm与git rm –-cached的区别
+### git rm与git rm –-cached的区别
 
 - 当我们需要删除`暂存区`上的文件，并且工作区也不需要这个文件，可以使用
 

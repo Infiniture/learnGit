@@ -24,4 +24,10 @@
   ```
 
 - Github上`.ignore`文件集合
+  
   - [.gitignore](https://github.com/github/gitignore/)
+  
+- References:
+
+  - [简书](https://www.jianshu.com/p/74bd0ceb6182)
+
